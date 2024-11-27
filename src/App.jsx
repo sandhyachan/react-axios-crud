@@ -1,5 +1,6 @@
 import './App.css'
 import DataTable from './components/DataTable'
+import DetailsForm from './components/DetailsForm'
 import Header from './components/Header'
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <>
     <Header/>
     <DataTable/>
+    <DetailsForm/>
     </>
   )
 }

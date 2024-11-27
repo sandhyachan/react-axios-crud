@@ -5,7 +5,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-
 export default function DataTable() {
   const [details, setDetails] = useState([])
 
@@ -24,19 +23,12 @@ export default function DataTable() {
           {details.map((alumni) => (
             <div key={alumni.id} className="accordion-item">
               <h2 className="accordion-header d-flex justify-content-between" id={`heading-${alumni.id}`}>
-                <button
-                  className="accordion-button"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target={`#collapse-${alumni.id}`}
-                  aria-expanded="false"
-                  aria-controls={`collapse-${alumni.id}`}
-                >
+                <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse-${alumni.id}`} aria-expanded="false" aria-controls={`collapse-${alumni.id}`}>
                   {alumni.id}. {alumni.name}
                 </button>
 
-                <button
-                  className="btn btn-sm btn-outline-primary accordion-edit-btn"><i className="bi bi-pen"></i>
+                <button className="btn btn-sm btn-outline-primary accordion-edit-btn">
+                  <i className="bi bi-pen"></i>
                 </button>
               </h2>
               <div id={`collapse-${alumni.id}`} className="accordion-collapse collapse" aria-labelledby={`heading-${alumni.id}`} data-bs-parent="#accordionExample">
@@ -68,5 +60,5 @@ export default function DataTable() {
         </div>
       </div>
     </>
-  );
+  )
 }
