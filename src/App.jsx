@@ -33,8 +33,8 @@ function App() {
       .catch(error => console.error('Error fetching users:', error))
   }, [])
 
-  function handleEdit(userId) {
-    const userToEdit = users.find((user) => user.id === userId)
+  function handleEdit(alumniId) {
+    const userToEdit = users.find((user) => user.id === alumniId)
     if (userToEdit) {
       setEditInfo(userToEdit) 
       setFormData({
@@ -55,6 +55,16 @@ function App() {
       })
       handleAddAlumni() 
     }
+  }
+
+  function handleDelete(alumniId, alumniIndex) {
+    axios.delete(`https://jsonplaceholder.typicode.com/users/${alumniIndex}`)
+    .then(response => {
+      console.log("deleted" + response.data)
+      setUsers(prevUsers => prevUsers.filter(user => user.id !== alumniId))
+    })
+    
+    .catch(err => console.log(err))
   }
 
   const handleSubmit = (updatedData) => {
@@ -114,7 +124,7 @@ function App() {
     <div>
       <Header handleAddAlumni={handleAddAlumni} />
 
-      <DataTable details={users} handleEdit={handleEdit} />
+      <DataTable details={users} handleEdit={handleEdit} handleDelete={handleDelete} />
 
       <div ref={detailsFormRef}>
         <DetailsForm

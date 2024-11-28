@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-export default function DataTable({ handleEdit, details }) {
+export default function DataTable({ handleEdit, details, handleDelete }) {
   return (
     <>
       <div className="container mt-5 mb-4">
@@ -23,9 +23,13 @@ export default function DataTable({ handleEdit, details }) {
 
                 <button
                   className="btn btn-sm btn-outline-primary accordion-edit-btn m-2"
-                  onClick={() => handleEdit(alumni.id, index)}
-                >
+                  onClick={() => handleEdit(alumni.id, index)}>
                   <i className="bi bi-pen"></i>
+                </button>
+                <button
+                  className="btn btn-sm btn-outline-danger accordion-delete-btn m-2"
+                  onClick={() => handleDelete(alumni.id, index)}>
+                  <i className="bi bi-trash3"></i>
                 </button>
               </h2>
               <div
@@ -67,5 +71,6 @@ export default function DataTable({ handleEdit, details }) {
 
 DataTable.propTypes = {
   handleEdit: PropTypes.func.isRequired,
-  details: PropTypes.array.isRequired
+  details: PropTypes.array.isRequired,
+  handleDelete: PropTypes.func.isRequired
 }
