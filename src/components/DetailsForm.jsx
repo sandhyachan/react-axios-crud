@@ -1,12 +1,21 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import PropTypes from 'prop-types';
 
-export default function DetailsForm() {
+export default function DetailsForm({ editInfo, handleSubmit, formData, handleChange }) {
+  const onSubmit = (e) => {
+    e.preventDefault()
+    if (!formData.name) {
+      alert("Please fill out the required name.")
+      return
+    }
+    handleSubmit(formData)
+  }
+
   return (
     <div className="container mt-5">
       <h2 className="mb-4 text-center">Alumni Information Form</h2>
 
       <div className="card p-4 d-flex flex-column">
-        <form className="flex-grow-1">
+        <form onSubmit={onSubmit} className="flex-grow-1">
           <div className="mb-4">
             <h4 className="mb-3">Personal Information</h4>
 
@@ -16,7 +25,10 @@ export default function DetailsForm() {
                 type="text"
                 className="form-control"
                 id="name"
+                name="name"
+                value={formData.name || ''}
                 placeholder="Enter alumni's name"
+                onChange={handleChange}
               />
             </div>
 
@@ -26,7 +38,10 @@ export default function DetailsForm() {
                 type="text"
                 className="form-control"
                 id="username"
+                name="username"
+                value={formData.username || ''}
                 placeholder="Enter alumni's username"
+                onChange={handleChange}
               />
             </div>
 
@@ -36,7 +51,10 @@ export default function DetailsForm() {
                 type="email"
                 className="form-control"
                 id="email"
+                name="email"
+                value={formData.email || ''}
                 placeholder="Enter alumni's email"
+                onChange={handleChange}
               />
             </div>
 
@@ -46,26 +64,29 @@ export default function DetailsForm() {
                 type="tel"
                 className="form-control"
                 id="phone"
+                name="phone"
+                value={formData.phone || ''}
                 placeholder="Enter alumni's phone number"
+                onChange={handleChange}
               />
             </div>
 
             <div className="mb-3">
               <label htmlFor="website" className="form-label">Website</label>
               <input
-                type="url"
+                type="text"
                 className="form-control"
                 id="website"
-                placeholder="Enter alumni's website URL"
+                name="website"
+                value={formData.website || ''}
+                placeholder="Enter alumni's website"
+                onChange={handleChange}
               />
-              <small id="websiteHelp" className="form-text text-muted">
-                Example: https://website.com
-              </small>
             </div>
           </div>
 
           <div className="mb-4">
-            <h4 className="mb-3">Address</h4>
+            <h4 className="mb-3">Address Information</h4>
 
             <div className="mb-3">
               <label htmlFor="street" className="form-label">Street</label>
@@ -73,7 +94,9 @@ export default function DetailsForm() {
                 type="text"
                 className="form-control"
                 id="street"
-                placeholder="Enter alumni's street"
+                name="street"
+                value={formData.street || ''}
+                onChange={handleChange}
               />
             </div>
 
@@ -83,7 +106,9 @@ export default function DetailsForm() {
                 type="text"
                 className="form-control"
                 id="suite"
-                placeholder="Enter alumni's suite"
+                name="suite"
+                value={formData.suite || ''}
+                onChange={handleChange}
               />
             </div>
 
@@ -93,7 +118,9 @@ export default function DetailsForm() {
                 type="text"
                 className="form-control"
                 id="city"
-                placeholder="Enter alumni's city"
+                name="city"
+                value={formData.city || ''}
+                onChange={handleChange}
               />
             </div>
 
@@ -103,34 +130,39 @@ export default function DetailsForm() {
                 type="text"
                 className="form-control"
                 id="zipcode"
-                placeholder="Enter alumni's zipcode"
+                name="zipcode"
+                value={formData.zipcode || ''}
+                onChange={handleChange}
               />
             </div>
 
-            <div className="row">
-              <div className="col-md-6 mb-3">
-                <label htmlFor="latitude" className="form-label">Latitude</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="latitude"
-                  placeholder="Enter latitude"
-                />
-              </div>
-              <div className="col-md-6 mb-3">
-                <label htmlFor="longitude" className="form-label">Longitude</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="longitude"
-                  placeholder="Enter longitude"
-                />
-              </div>
+            <div className="mb-3">
+              <label htmlFor="latitude" className="form-label">Latitude</label>
+              <input
+                type="text"
+                className="form-control"
+                id="latitude"
+                name="latitude"
+                value={formData.latitude || ''}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="longitude" className="form-label">Longitude</label>
+              <input
+                type="text"
+                className="form-control"
+                id="longitude"
+                name="longitude"
+                value={formData.longitude || ''}
+                onChange={handleChange}
+              />
             </div>
           </div>
 
           <div className="mb-4">
-            <h4 className="mb-3">Company</h4>
+            <h4 className="mb-3">Company Information</h4>
 
             <div className="mb-3">
               <label htmlFor="companyName" className="form-label">Company Name</label>
@@ -138,7 +170,9 @@ export default function DetailsForm() {
                 type="text"
                 className="form-control"
                 id="companyName"
-                placeholder="Enter alumni's company name"
+                name="companyName"
+                value={formData.companyName || ''}
+                onChange={handleChange}
               />
             </div>
 
@@ -148,7 +182,9 @@ export default function DetailsForm() {
                 type="text"
                 className="form-control"
                 id="catchphrase"
-                placeholder="Enter alumni's company catchphrase"
+                name="catchphrase"
+                value={formData.catchphrase || ''}
+                onChange={handleChange}
               />
             </div>
 
@@ -158,16 +194,25 @@ export default function DetailsForm() {
                 type="text"
                 className="form-control"
                 id="businessStrategy"
-                placeholder="Enter alumni's business strategy"
+                name="businessStrategy"
+                value={formData.businessStrategy || ''}
+                onChange={handleChange}
               />
             </div>
           </div>
 
-          <div className="d-flex justify-content-end">
-            <button type="submit" className="btn btn-primary">Submit</button>
-          </div>
+          <button type="submit" className="btn btn-primary">
+            {editInfo ? 'Update Alumni' : 'Add Alumni'}
+          </button>
         </form>
       </div>
     </div>
   )
+}
+
+DetailsForm.propTypes = {
+  editInfo: PropTypes.object,
+  handleSubmit: PropTypes.func.isRequired,
+  formData: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired
 }

@@ -1,8 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import PropTypes from 'prop-types';
 
-export default function Header() {
+export default function Header({handleAddAlumni}) {
  
   return (
     <header className="bg-primary text-white py-4 mb-4">
@@ -14,7 +15,7 @@ export default function Header() {
           </div>
 
           <div className="col-md-4 text-md-end mt-3 mt-md-0">
-            <button className="btn btn-light">
+            <button className="btn btn-light" onClick={handleAddAlumni}>
             <i className="bi bi-person-plus-fill"></i> Add New Alumni
             </button>
           </div>
@@ -22,4 +23,8 @@ export default function Header() {
       </div>
     </header>
   );
+}
+
+Header.propTypes = {
+  handleAddAlumni: PropTypes.func.isRequired
 }
