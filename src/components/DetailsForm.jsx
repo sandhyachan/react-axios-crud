@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 export default function DetailsForm({ editInfo, handleSubmit, formData, handleChange }) {
   const onSubmit = (e) => {
     e.preventDefault()
-    if (!formData.name) {
-      alert("Please fill out the required name.")
+    if (!formData.name || !formData.phone) {
+      alert("Please fill out the name and phone number.")
       return
     }
     handleSubmit(formData)

@@ -23,18 +23,18 @@ const emptyFormData = {
 
 function App() {
   const [editInfo, setEditInfo] = useState(null)
-  const [users, setUsers] = useState([])
+  const [alumni, setAlumni] = useState([])
   const [formData, setFormData] = useState(emptyFormData)
   const detailsFormRef = useRef(null)
 
   useEffect(() => {
     axios.get('https://jsonplaceholder.typicode.com/users')
-      .then(response => setUsers(response.data))
-      .catch(error => console.error('Error fetching users:', error))
+      .then(response => setAlumni(response.data))
+      .catch(error => console.error('Error fetching alumni:', error))
   }, [])
 
   function handleEdit(alumniId) {
-    const userToEdit = users.find((user) => user.id === alumniId)
+    const userToEdit = alumni.find((user) => user.id === alumniId)
     if (userToEdit) {
       setEditInfo(userToEdit) 
       setFormData({
@@ -60,15 +60,15 @@ function App() {
   function handleDelete(alumniId, alumniIndex) {
     axios.delete(`https://jsonplaceholder.typicode.com/users/${alumniIndex}`)
     .then(response => {
-      console.log("deleted" + response.data)
-      setUsers(prevUsers => prevUsers.filter(user => user.id !== alumniId))
+      console.log(`Deleted ${response.data}`)
+      setAlumni(prevAlumni => prevAlumni.filter(user => user.id !== alumniId))
     })
     
     .catch(err => console.log(err))
   }
 
   const handleSubmit = (updatedData) => {
-    const updatedUser = {
+    const updatedAlumni = {
       ...updatedData,
       address: {
         street: updatedData.street,
@@ -83,28 +83,33 @@ function App() {
         bs: updatedData.businessStrategy,
       },
     }
-
+  
     if (editInfo) {
-      axios.put(`https://jsonplaceholder.typicode.com/users/${editInfo.id}`, updatedUser)
+      axios.put(`https://jsonplaceholder.typicode.com/users/${editInfo.id}`, updatedAlumni)
         .then(response => {
-          setUsers(prevUsers =>
-            prevUsers.map((user) =>
-              user.id === editInfo.id ? response.data : user 
+          setAlumni(prevAlumni =>
+            prevAlumni.map(user =>
+              user.id === editInfo.id ? response.data : user
             )
           )
-          setEditInfo(null) 
+          setEditInfo(null)
           setFormData(emptyFormData)
         })
         .catch(error => console.error('Error updating user:', error))
     } else {
-      axios.post('https://jsonplaceholder.typicode.com/users', updatedUser)
-        .then(response => {
-          setUsers(prevUsers => [...prevUsers, response.data])
-          setFormData(emptyFormData) 
+      const newId = alumni.length > 0 ? Math.max(...alumni.map(user => user.id)) + 1 : 1
+  
+      const newAlumni = { ...updatedAlumni, id: newId }
+  
+      axios.post('https://jsonplaceholder.typicode.com/users', newAlumni)
+        .then(response => { console.log(response.data)
+          setAlumni(prevAlumni => [...prevAlumni, newAlumni])
+          setFormData(emptyFormData)
         })
         .catch(error => console.error('Error adding user:', error))
     }
   }
+  
 
   function handleAddAlumni() {
     if (detailsFormRef.current) {
@@ -124,7 +129,7 @@ function App() {
     <div>
       <Header handleAddAlumni={handleAddAlumni} />
 
-      <DataTable details={users} handleEdit={handleEdit} handleDelete={handleDelete} />
+      <DataTable details={alumni} handleEdit={handleEdit} handleDelete={handleDelete} />
 
       <div ref={detailsFormRef}>
         <DetailsForm
