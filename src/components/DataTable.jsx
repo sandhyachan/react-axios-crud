@@ -6,6 +6,7 @@ export default function DataTable({ handleEdit, details, handleDelete }) {
   return (
     <>
       <div className="container mt-5 mb-4">
+        {/* Accordion to display list of alumni */}
         <div className="accordion" id="accordionExample">
           {details.map((alumni, index) => (
             <div key={alumni.id} className="accordion-item">
@@ -21,17 +22,22 @@ export default function DataTable({ handleEdit, details, handleDelete }) {
                   {index+1}. {alumni.name}
                 </button>
 
+                {/* Edit button */}
                 <button
                   className="btn btn-sm btn-outline-primary accordion-edit-btn m-2"
                   onClick={() => handleEdit(alumni.id, index)}>
                   <i className="bi bi-pen"></i>
                 </button>
+
+                {/* Delete button */}
                 <button
                   className="btn btn-sm btn-outline-danger accordion-delete-btn m-2"
                   onClick={() => handleDelete(alumni.id, index)}>
                   <i className="bi bi-trash3"></i>
                 </button>
               </h2>
+
+              {/* Alumni detailed info in accordian body */}
               <div
                 id={`collapse-${alumni.id}`}
                 className="accordion-collapse collapse"
@@ -69,6 +75,7 @@ export default function DataTable({ handleEdit, details, handleDelete }) {
   )
 }
 
+// Props validation
 DataTable.propTypes = {
   handleEdit: PropTypes.func.isRequired,
   details: PropTypes.array.isRequired,

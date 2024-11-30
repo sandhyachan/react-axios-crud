@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
 
 export default function DetailsForm({ editInfo, handleSubmit, formData, handleChange }) {
+
+  //Handle form submission
   const onSubmit = (e) => {
     e.preventDefault()
     if (!formData.name || !formData.phone) {
+      //Ensure name and phone number is filled  
       alert("Please fill out the name and phone number.")
       return
     }
+    // Pass the form data for submission
     handleSubmit(formData)
   }
 
@@ -14,9 +18,12 @@ export default function DetailsForm({ editInfo, handleSubmit, formData, handleCh
     <div className="container mt-5">
       <h2 className="mb-4 text-center">Alumni Information Form</h2>
 
+      {/* Card container for form */}
       <div className="card p-4 d-flex flex-column">
         <form onSubmit={onSubmit} className="flex-grow-1">
           <div className="mb-4">
+
+            {/* Personal Information Section */}
             <h4 className="mb-3">Personal Information</h4>
 
             <div className="mb-3">
@@ -85,6 +92,7 @@ export default function DetailsForm({ editInfo, handleSubmit, formData, handleCh
             </div>
           </div>
 
+          {/* Address Information Section */}
           <div className="mb-4">
             <h4 className="mb-3">Address Information</h4>
 
@@ -161,6 +169,7 @@ export default function DetailsForm({ editInfo, handleSubmit, formData, handleCh
             </div>
           </div>
 
+          {/* Professional Information */}
           <div className="mb-4">
             <h4 className="mb-3">Company Information</h4>
 
@@ -201,6 +210,7 @@ export default function DetailsForm({ editInfo, handleSubmit, formData, handleCh
             </div>
           </div>
 
+          {/* Submit button */}
           <button type="submit" className="btn btn-primary">
             {editInfo ? 'Update Alumni' : 'Add Alumni'}
           </button>
@@ -210,6 +220,7 @@ export default function DetailsForm({ editInfo, handleSubmit, formData, handleCh
   )
 }
 
+//Prop validation
 DetailsForm.propTypes = {
   editInfo: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,
